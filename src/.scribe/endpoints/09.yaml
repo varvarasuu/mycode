@@ -1,0 +1,2274 @@
+name: Company
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/company/external-search
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: 'External Search'
+      subgroupDescription: 'Here i can search companies external of at-work.pro'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      query:
+        name: query
+        description: ''
+        required: true
+        example: 'ат ворк'
+        type: string
+        custom: []
+    cleanUrlParameters:
+      query: 'ат ворк'
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": [
+                  {
+                      "type_short": "ООО",
+                      "type_full": "Общество с ограниченной ответственностью",
+                      "name": "АГЕНТСТВО ЛИНЕЙНОГО ПЕРСОНАЛА МЕН АТ ВОРК",
+                      "name_full": "АГЕНТСТВО ЛИНЕЙНОГО ПЕРСОНАЛА МЕН АТ ВОРК",
+                      "inn": "7717756611",
+                      "kpp": "771701001",
+                      "ogrn": "1137746567628",
+                      "ogrn_date": 1372723200000,
+                      "okved": "78.10",
+                      "address": "г Москва, ул Дубовой Рощи, д 25 к 2 стр 1",
+                      "address_city": "Москва",
+                      "management_name": "Черняков Олег Михайлович",
+                      "management_post": "Конкурсный управляющий",
+                      "status": "Действующая организация"
+                  },
+                  {
+                      "type_short": "ООО",
+                      "type_full": "Общество с ограниченной ответственностью",
+                      "name": "АТ-ВОРК",
+                      "name_full": "АТ-ВОРК",
+                      "inn": "7804679272",
+                      "kpp": "780401001",
+                      "ogrn": "1217800007336",
+                      "ogrn_date": 1611619200000,
+                      "okved": "62.01",
+                      "address": "195220, Г.Санкт-Петербург, ВН.ТЕР.Г. МУНИЦИПАЛЬНЫЙ ОКРУГ ГРАЖДАНКА, ПР-КТ ГРАЖДАНСКИЙ, Д. 22, ЛИТЕРА А, ПОМЕЩ. 8Н, ОФИС 310/1",
+                      "address_city": "Санкт-Петербург",
+                      "management_name": "Александров Дмитрий Евгеньевич",
+                      "management_post": "ГЕНЕРАЛЬНЫЙ ДИРЕКТОР",
+                      "status": "Действующая организация"
+                  }
+              ],
+              "status": "success"
+          }
+        headers: []
+        description: 'i found company'
+        custom: []
+      -
+        status: 404
+        content: |
+          {
+              "data": [],
+              "status": "success"
+          }
+        headers: []
+        description: 'i not found company'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/company/internal-search
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: 'Internal Search'
+      subgroupDescription: 'Here i can search companies in the system of at-work.pro'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      query:
+        name: query
+        description: ''
+        required: true
+        example: 'ат ворк'
+        type: string
+        custom: []
+    cleanUrlParameters:
+      query: 'ат ворк'
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": [
+                  {
+                      "id": 6,
+                      "type_short": "ООО",
+                      "type_full": "Общество с ограниченной ответственностью",
+                      "name": "АГЕНТСТВО ЛИНЕЙНОГО ПЕРСОНАЛА МЕН АТ ВОРК",
+                      "name_full": "АГЕНТСТВО ЛИНЕЙНОГО ПЕРСОНАЛА МЕН АТ ВОРК",
+                      "inn": "7717756611",
+                      "kpp": "771701001",
+                      "ogrn": "1137746567628",
+                      "ogrn_date": "1372723200000",
+                      "okved": "78.10",
+                      "okved_text": "Деятельность агентств по подбору персонала",
+                      "manager_name": "Черняков Олег Михайлович",
+                      "manager_position": "Конкурсный управляющий",
+                      "okato": "45280572000",
+                      "oktmo": "45358000000",
+                      "okfs": "16",
+                      "okogu": "4210014",
+                      "okpo": null,
+                      "type_capital": "УСТАВНЫЙ КАПИТАЛ",
+                      "sum_capital": "5010000",
+                      "status": "ACTIVE",
+                      "status_text": "Действующая организация",
+                      "address": "г Москва, ул Дубовой Рощи, д 25 к 2 стр 1",
+                      "region_id": 1,
+                      "account_id": 20,
+                      "created_at": "2023-07-12T11:53:57.000000Z",
+                      "updated_at": "2023-07-12T11:53:57.000000Z"
+                  }
+              ],
+              "status": "success"
+          }
+        headers: []
+        description: 'i found company'
+        custom: []
+      -
+        status: 200
+        content: |
+          {
+              "data": [],
+              "status": "success"
+          }
+        headers: []
+        description: 'i not found company'
+        custom: []
+      -
+        status: 422
+        content: |
+          {
+              "message": "The query field is required.",
+              "errors": {
+                  "query": [
+                      "The query field is required."
+                  ]
+              }
+          }
+        headers: []
+        description: 'query is required'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/company/create
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: Create
+      subgroupDescription: 'Here i can create companies'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      inn:
+        name: inn
+        description: ''
+        required: true
+        example: '7717756611'
+        type: string
+        custom: []
+    cleanBodyParameters:
+      inn: '7717756611'
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |
+          {
+              "data": {
+                  "type_short": "ООО",
+                  "type_full": "Общество с ограниченной ответственностью",
+                  "name": "АГЕНТСТВО ЛИНЕЙНОГО ПЕРСОНАЛА МЕН АТ ВОРК",
+                  "name_full": "АГЕНТСТВО ЛИНЕЙНОГО ПЕРСОНАЛА МЕН АТ ВОРК",
+                  "inn": "7717756611",
+                  "kpp": "771701001",
+                  "ogrn": "1137746567628",
+                  "ogrn_date": 1372723200000,
+                  "okved": "78.10",
+                  "okved_text": "Деятельность агентств по подбору персонала",
+                  "manager_name": "Черняков Олег Михайлович",
+                  "manager_position": "Конкурсный управляющий",
+                  "okato": "45280572000",
+                  "oktmo": "45358000000",
+                  "okfs": "16",
+                  "okogu": "4210014",
+                  "type_capital": "УСТАВНЫЙ КАПИТАЛ",
+                  "sum_capital": "5010000",
+                  "status": "ACTIVE",
+                  "status_text": "Действующая организация",
+                  "address": "г Москва, ул Дубовой Рощи, д 25 к 2 стр 1",
+                  "account_id": 20,
+                  "region_id": 1,
+                  "updated_at": "2023-07-12T11:53:57.000000Z",
+                  "created_at": "2023-07-12T11:53:57.000000Z",
+                  "id": 6
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'company created'
+        custom: []
+      -
+        status: 422
+        content: |
+          {
+              "message": "The company already exist",
+              "status": "error"
+          }
+        headers: []
+        description: 'company already exist'
+        custom: []
+      -
+        status: 422
+        content: |
+          {
+              "message": "The inn field is required.",
+              "errors": {
+                  "inn": [
+                      "The inn field is required."
+                  ]
+              }
+          }
+        headers: []
+        description: 'inn is required'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/company/update
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: 'Update company'
+      subgroupDescription: 'Here i can logout is company'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": {
+                  "user": {
+                      "id": 12,
+                      "email": "danianmercado@gmail.com",
+                      "phone_number": "+79817569729",
+                      "is_active": null,
+                      "is_deleted": 0,
+                      "avatar": null,
+                      "created_at": "2023-07-17T07:58:31.000000Z",
+                      "updated_at": "2023-07-17T10:51:36.000000Z",
+                      "current_section_id": null,
+                      "logged_as": null,
+                      "name": "Danilo",
+                      "lastname": "Mercado",
+                      "birthday": null,
+                      "balance": "0.00",
+                      "current_section_name": "general",
+                      "referal_code": "MTI="
+                  }
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'i can logout as that company'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/company/login-as-company
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: 'Login as company'
+      subgroupDescription: 'Here i can login as one of my companies'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": {
+                  "user": {
+                      "id": 12,
+                      "email": "danianmercado@gmail.com",
+                      "phone_number": "+79817569729",
+                      "is_active": null,
+                      "is_deleted": 0,
+                      "avatar": null,
+                      "created_at": "2023-07-17T07:58:31.000000Z",
+                      "updated_at": "2023-07-17T09:31:43.000000Z",
+                      "current_section_id": null,
+                      "logged_as": "5",
+                      "name": "Danilo",
+                      "lastname": "Mercado",
+                      "birthday": null,
+                      "balance": "0.00",
+                      "current_section_name": "general",
+                      "referal_code": "MTI="
+                  },
+                  "company": {
+                      "company_id": 5,
+                      "inn": "7804679272",
+                      "type_company": "ООО",
+                      "name_company": "АТ-ВОРК",
+                      "avatar": null
+                  }
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'i can login as that company'
+        custom: []
+      -
+        status: 200
+        content: |
+          {
+              "message": "You cant login as this company",
+              "status": "error"
+          }
+        headers: []
+        description: 'i cant login as that company'
+        custom: []
+      -
+        status: 200
+        content: |
+          {
+              "message": "Company not found",
+              "status": "error"
+          }
+        headers: []
+        description: 'this company no exist'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/company/logout-is-company
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: 'Logout is company'
+      subgroupDescription: 'Here i can logout is company'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": {
+                  "user": {
+                      "id": 12,
+                      "email": "danianmercado@gmail.com",
+                      "phone_number": "+79817569729",
+                      "is_active": null,
+                      "is_deleted": 0,
+                      "avatar": null,
+                      "created_at": "2023-07-17T07:58:31.000000Z",
+                      "updated_at": "2023-07-17T10:51:36.000000Z",
+                      "current_section_id": null,
+                      "logged_as": null,
+                      "name": "Danilo",
+                      "lastname": "Mercado",
+                      "birthday": null,
+                      "balance": "0.00",
+                      "current_section_name": "general",
+                      "referal_code": "MTI="
+                  }
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'i can logout as that company'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/company/get-my-companies
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: 'Get my companies'
+      subgroupDescription: 'Here i can get companies where i am'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": [
+                  {
+                      "company_id": 5,
+                      "inn": "7804679272",
+                      "type_company": "ООО",
+                      "name_company": "АТ-ВОРК",
+                      "avatar": null
+                  }
+              ],
+              "status": "success"
+          }
+        headers: []
+        description: 'i have companies'
+        custom: []
+      -
+        status: 200
+        content: |
+          {
+              "data": [],
+              "status": "success"
+          }
+        headers: []
+        description: 'i dont have companies'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/company/get-company-sizes
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: 'Get Company sizes'
+      subgroupDescription: 'List all possible sizes of companies'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": [
+                  {
+                      "id": 1,
+                      "size": "1 человек",
+                      "created_at": "2023-07-19T08:54:57.000000Z",
+                      "updated_at": "2023-07-19T08:54:57.000000Z"
+                  },
+                  {
+                      "id": 2,
+                      "size": "до 10 человек",
+                      "created_at": "2023-07-19T08:54:57.000000Z",
+                      "updated_at": "2023-07-19T08:54:57.000000Z"
+                  },
+                  {
+                      "id": 3,
+                      "size": "от 10 до 100 человек",
+                      "created_at": "2023-07-19T08:54:57.000000Z",
+                      "updated_at": "2023-07-19T08:54:57.000000Z"
+                  },
+                  {
+                      "id": 4,
+                      "size": "от 100 до 1000 человек",
+                      "created_at": "2023-07-19T08:54:57.000000Z",
+                      "updated_at": "2023-07-19T08:54:57.000000Z"
+                  },
+                  {
+                      "id": 5,
+                      "size": "от 1000 до 5000 человек",
+                      "created_at": "2023-07-19T08:54:57.000000Z",
+                      "updated_at": "2023-07-19T08:54:57.000000Z"
+                  },
+                  {
+                      "id": 6,
+                      "size": "более 5000 человек",
+                      "created_at": "2023-07-19T08:54:57.000000Z",
+                      "updated_at": "2023-07-19T08:54:57.000000Z"
+                  }
+              ],
+              "status": "success"
+          }
+        headers: []
+        description: success
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/company/update-juridical-data
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: 'Update juridical data'
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": "Employee is confirmed and added to the company",
+              "status": "success"
+          }
+        headers: []
+        description: 'Email успешно подтвержден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/employee-link-send
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: addEmployee
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: ''
+        required: false
+        example: test@mail.ru
+        type: required
+        custom: []
+      role:
+        name: role
+        description: integer
+        required: false
+        example: '1'
+        type: required
+        custom: []
+      start_link:
+        name: start_link
+        description: string
+        required: false
+        example: at-work.pro/invite/
+        type: required
+        custom: []
+    cleanBodyParameters:
+      email: test@mail.ru
+      role: '1'
+      start_link: at-work.pro/invite/
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "message": "Email is send"
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Email успешно отправлен'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/employee-use-link/{code}'
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: addEmployee
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      code:
+        name: code
+        description: ''
+        required: true
+        example: et
+        type: string
+        custom: []
+    cleanUrlParameters:
+      code: et
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": "Employee is confirmed and added to the company",
+              "status": "success"
+          }
+        headers: []
+        description: 'Email успешно подтвержден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/company/employee/rights-save
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: EmployeeRightsAndKvotes
+      subgroupDescription: 'Здесь настраиваются права и квоты'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      employee_id:
+        name: employee_id
+        description: ''
+        required: true
+        example: 77
+        type: integer
+        custom: []
+      role_id:
+        name: role_id
+        description: ''
+        required: true
+        example: 2
+        type: integer
+        custom: []
+      premissions:
+        name: premissions
+        description: ''
+        required: false
+        example: '[{"id":1, "is_active":1 }, {"id":2, "is_active":0 }, {"id":3, "is_active":0 }, {"id":4, "is_active":1 }, {"id":5, "is_active":1 }, {"id":6, "is_active":1 }, {"id":7, "is_active":1 }, {"id":8, "is_active":1 }, {"id":9, "is_active":1 }, {"id":10, "is_active":1 }, {"id":11, "is_active":1 }, {"id":12, "is_active":1 },{"id":13, "is_active":1 },{"id":14, "is_active":1 },{"id":15, "is_active":1 },{"id":16, "is_active":1 },{"id":17, "is_active":1}]'
+        type: required
+        custom: []
+    cleanBodyParameters:
+      employee_id: 77
+      role_id: 2
+      premissions: '[{"id":1, "is_active":1 }, {"id":2, "is_active":0 }, {"id":3, "is_active":0 }, {"id":4, "is_active":1 }, {"id":5, "is_active":1 }, {"id":6, "is_active":1 }, {"id":7, "is_active":1 }, {"id":8, "is_active":1 }, {"id":9, "is_active":1 }, {"id":10, "is_active":1 }, {"id":11, "is_active":1 }, {"id":12, "is_active":1 },{"id":13, "is_active":1 },{"id":14, "is_active":1 },{"id":15, "is_active":1 },{"id":16, "is_active":1 },{"id":17, "is_active":1}]'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "message": "Данные обновлены"
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Данные обновлены'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "В компании должен присутствовать хотя бы один администратор",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не можете удалить последнего администратора'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Изменение выбранных прав недоступно для данной роли",
+              "status": "error"
+          }
+        headers: []
+        description: 'Изменение выбранных прав недоступно для данной роли'
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Роль или сотрудник не найдены",
+              "status": "error"
+          }
+        headers: []
+        description: 'Роль или сотрудник не найдены'
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Профессиональный уровень не найден",
+              "status": "error"
+          }
+        headers: []
+        description: 'Профессиональный уровень не найден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/company/employee/list
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: Employee
+      subgroupDescription: 'Здесь получаешь список сотрудников и удаляешь'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": [
+                  {
+                      "id": 1,
+                      "role": "Администратор",
+                      "name": "hail",
+                      "lastname": "bitrix",
+                      "email": "test@at-work.pro",
+                      "phone": "+79817569728"
+                  }
+              ],
+              "status": "success"
+          }
+        headers: []
+        description: 'Список отдан'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'В компании должен присутствовать хотя бы один администратор'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/company/employee/{id}'
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: Employee
+      subgroupDescription: 'Здесь получаешь список сотрудников и удаляешь'
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the employee.'
+        required: true
+        example: quo
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: quo
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "message": "Сотрудник удалён"
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Сотрудник удален'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "В компании должен присутствовать хотя бы один администратор",
+              "status": "error"
+          }
+        headers: []
+        description: 'В компании должен присутствовать хотя бы один администратор'
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Сотрудник не найден",
+              "status": "error"
+          }
+        headers: []
+        description: 'Сотрудник не найден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/company/employee/kvotes
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: EmployeeRightsAndKvotes
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      employee_id:
+        name: employee_id
+        description: int
+        required: false
+        example: '3'
+        type: required
+        custom: []
+      max_vacancies_direct_response:
+        name: max_vacancies_direct_response
+        description: int
+        required: false
+        example: 'null'
+        type: required
+        custom: []
+      max_anon_vacancies:
+        name: max_anon_vacancies
+        description: int
+        required: false
+        example: '3'
+        type: required
+        custom: []
+      max_standard_vacancies:
+        name: max_standard_vacancies
+        description: int
+        required: false
+        example: '3'
+        type: required
+        custom: []
+      max_hot_vacancies:
+        name: max_hot_vacancies
+        description: int
+        required: false
+        example: '3'
+        type: required
+        custom: []
+      max_premium_vacancies:
+        name: max_premium_vacancies
+        description: int
+        required: false
+        example: '3'
+        type: required
+        custom: []
+    cleanBodyParameters:
+      employee_id: '3'
+      max_vacancies_direct_response: 'null'
+      max_anon_vacancies: '3'
+      max_standard_vacancies: '3'
+      max_hot_vacancies: '3'
+      max_premium_vacancies: '3'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "message": "Квоты сохранены"
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Квоты сохранены'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Сотрудник не найден",
+              "status": "error"
+          }
+        headers: []
+        description: 'Сотрудник не найден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/company/employee/rights/{id}'
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: EmployeeRightsAndKvotes
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the right.'
+        required: true
+        example: omnis
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: omnis
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "roles": [
+                      {
+                          "role_id": 1,
+                          "role_name": "Администратор",
+                          "is_active": 1
+                      },
+                      {
+                          "role_id": 2,
+                          "role_name": "Менеджер  с правами администратора",
+                          "is_active": 0
+                      },
+                      {
+                          "role_id": 3,
+                          "role_name": "Менеджер",
+                          "is_active": 0
+                      }
+                  ],
+                  "current_premissions": [
+                      {
+                          "premission_id": 1,
+                          "premission_name": "Просмотр вакансий коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 2,
+                          "premission_name": "Управление вакансиями коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 3,
+                          "premission_name": "Просмотр и передача архива коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 4,
+                          "premission_name": "Просмотр и передача избранного коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 5,
+                          "premission_name": "Управление файлами рекомендательных писем коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 6,
+                          "premission_name": "Управление файлами анкет и тестовых заданий коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 7,
+                          "premission_name": "Отправка предложения о работе",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 8,
+                          "premission_name": "Ответ на запросы рекомендательных писем",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 9,
+                          "premission_name": "Добавление новых сотрудников",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 10,
+                          "premission_name": "Настройка прав и квот сотрудников",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 11,
+                          "premission_name": "Удаление сотрудников",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 12,
+                          "premission_name": "Просмотр страницы статистики по отдельному сотруднику",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 13,
+                          "premission_name": "Выписка и оплата счетов, активация тарифов",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 14,
+                          "premission_name": "Доступ в документы компании",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 15,
+                          "premission_name": "Доступ во вкладку “Реквизиты” компании",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 16,
+                          "premission_name": "Редактирование информации о компании",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "premission_id": 17,
+                          "premission_name": "Удаление компании",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      }
+                  ],
+                  "default_premissions": [
+                      {
+                          "role_id": 1,
+                          "premission_id": 1,
+                          "premission_name": "Просмотр вакансий коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 2,
+                          "premission_name": "Управление вакансиями коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 3,
+                          "premission_name": "Просмотр и передача архива коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 4,
+                          "premission_name": "Просмотр и передача избранного коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 5,
+                          "premission_name": "Управление файлами рекомендательных писем коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 6,
+                          "premission_name": "Управление файлами анкет и тестовых заданий коллег",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 7,
+                          "premission_name": "Отправка предложения о работе",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 8,
+                          "premission_name": "Ответ на запросы рекомендательных писем",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 9,
+                          "premission_name": "Добавление новых сотрудников",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 10,
+                          "premission_name": "Настройка прав и квот сотрудников",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 11,
+                          "premission_name": "Удаление сотрудников",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 12,
+                          "premission_name": "Просмотр страницы статистики по отдельному сотруднику",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 13,
+                          "premission_name": "Выписка и оплата счетов, активация тарифов",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 14,
+                          "premission_name": "Доступ в документы компании",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 15,
+                          "premission_name": "Доступ во вкладку “Реквизиты” компании",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 16,
+                          "premission_name": "Редактирование информации о компании",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 1,
+                          "premission_id": 17,
+                          "premission_name": "Удаление компании",
+                          "is_active": 1,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 1,
+                          "premission_name": "Просмотр вакансий коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 2,
+                          "premission_name": "Управление вакансиями коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 3,
+                          "premission_name": "Просмотр и передача архива коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 4,
+                          "premission_name": "Просмотр и передача избранного коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 5,
+                          "premission_name": "Управление файлами рекомендательных писем коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 6,
+                          "premission_name": "Управление файлами анкет и тестовых заданий коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 7,
+                          "premission_name": "Отправка предложения о работе",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 8,
+                          "premission_name": "Ответ на запросы рекомендательных писем",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 9,
+                          "premission_name": "Добавление новых сотрудников",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 10,
+                          "premission_name": "Настройка прав и квот сотрудников",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 11,
+                          "premission_name": "Удаление сотрудников",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 12,
+                          "premission_name": "Просмотр страницы статистики по отдельному сотруднику",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 13,
+                          "premission_name": "Выписка и оплата счетов, активация тарифов",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 14,
+                          "premission_name": "Доступ в документы компании",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 15,
+                          "premission_name": "Доступ во вкладку “Реквизиты” компании",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 16,
+                          "premission_name": "Редактирование информации о компании",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 2,
+                          "premission_id": 17,
+                          "premission_name": "Удаление компании",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 1,
+                          "premission_name": "Просмотр вакансий коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 2,
+                          "premission_name": "Управление вакансиями коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 3,
+                          "premission_name": "Просмотр и передача архива коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 4,
+                          "premission_name": "Просмотр и передача избранного коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 5,
+                          "premission_name": "Управление файлами рекомендательных писем коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 6,
+                          "premission_name": "Управление файлами анкет и тестовых заданий коллег",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 7,
+                          "premission_name": "Отправка предложения о работе",
+                          "is_active": 1,
+                          "is_disabled": 0
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 8,
+                          "premission_name": "Ответ на запросы рекомендательных писем",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 9,
+                          "premission_name": "Добавление новых сотрудников",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 10,
+                          "premission_name": "Настройка прав и квот сотрудников",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 11,
+                          "premission_name": "Удаление сотрудников",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 12,
+                          "premission_name": "Просмотр страницы статистики по отдельному сотруднику",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 13,
+                          "premission_name": "Выписка и оплата счетов, активация тарифов",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 14,
+                          "premission_name": "Доступ в документы компании",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 15,
+                          "premission_name": "Доступ во вкладку “Реквизиты” компании",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 16,
+                          "premission_name": "Редактирование информации о компании",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      },
+                      {
+                          "role_id": 3,
+                          "premission_id": 17,
+                          "premission_name": "Удаление компании",
+                          "is_active": 0,
+                          "is_disabled": 1
+                      }
+                  ],
+                  "position": "Содержанка",
+                  "professional_level": [
+                      {
+                          "level_id": 1,
+                          "level_name": "Начинающий",
+                          "is_active": 0
+                      },
+                      {
+                          "level_id": 2,
+                          "level_name": "Специалист",
+                          "is_active": 1
+                      },
+                      {
+                          "level_id": 3,
+                          "level_name": "Продвинутый",
+                          "is_active": 0
+                      }
+                  ],
+                  "email": "test@at-work.pro",
+                  "phone_numnber": "+79817569728",
+                  "extra_contacts": "vk/pop"
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Данные отправлены'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Сотрудник не найден",
+              "status": "error"
+          }
+        headers: []
+        description: 'Сотрудник не найден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/company/employee/kvotes/{id}'
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: EmployeeRightsAndKvotes
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the kvote.'
+        required: true
+        example: soluta
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: soluta
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "max_vacancies_direct_response": 1,
+                  "max_anon_vacancies": null,
+                  "max_standard_vacancies": 5,
+                  "max_hot_vacancies": null,
+                  "max_premium_vacancies": null
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Данные отправлены'
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Сотрудник не найден",
+              "status": "error"
+          }
+        headers: []
+        description: 'Сотрудник не найден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/company/rekvisites
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: Rekvisites
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      company_rekvisites:
+        name: company_rekvisites
+        description: 'of files'
+        required: false
+        example:
+          - omnis
+        type: 'string[]'
+        custom: []
+    cleanBodyParameters:
+      company_rekvisites:
+        - omnis
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": "Реквизиты добавлены",
+              "status": "success"
+          }
+        headers: []
+        description: 'Реквизиты добавлены'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/company/rekvisites
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: Rekvisites
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/company/office/add
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: Office
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      address:
+        name: address
+        description: string
+        required: false
+        example: '"Санкт-Петербург, Гражданский проспект, 22"'
+        type: required
+        custom: []
+      coordinate:
+        name: coordinate
+        description: array
+        required: false
+        example: '[60.003979, 30.387329]'
+        type: reuired
+        custom: []
+      metro:
+        name: metro
+        description: array
+        required: false
+        example: '[ { "name": "Политехническая", "line": 1, "city": "Санкт-Петербург" }, { "name": "Академическая", "line": 1, "city": "Санкт-Петербург"  }]'
+        type: required
+        custom: []
+    cleanBodyParameters:
+      address: '"Санкт-Петербург, Гражданский проспект, 22"'
+      coordinate: '[60.003979, 30.387329]'
+      metro: '[ { "name": "Политехническая", "line": 1, "city": "Санкт-Петербург" }, { "name": "Академическая", "line": 1, "city": "Санкт-Петербург"  }]'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "id": 6,
+                  "address": "Москва, Гражданский проспект, 22",
+                  "added_by": "bitrix h.",
+                  "metro": [
+                      {
+                          "id": 238,
+                          "city_id": 1,
+                          "city_name": "Москва",
+                          "line_id": "95",
+                          "line_name": "МЦК",
+                          "line_color": "CC4C6E",
+                          "station_id": "95.530",
+                          "station_name": "Автозаводская",
+                          "lat": 55.70631,
+                          "lng": 37.66314
+                      },
+                      {
+                          "id": 23,
+                          "city_id": 1,
+                          "city_name": "Москва",
+                          "line_id": "2",
+                          "line_name": "Замоскворецкая",
+                          "line_color": "4FB04F",
+                          "station_id": "2.2",
+                          "station_name": "Автозаводская",
+                          "lat": 55.706634,
+                          "lng": 37.657008
+                      }
+                  ]
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Офис добавлен'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/company/offices
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: Office
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "id": 6,
+                  "address": "Москва, Гражданский проспект, 22",
+                  "added_by": "bitrix h.",
+                  "metro": [
+                      {
+                          "id": 238,
+                          "city_id": 1,
+                          "city_name": "Москва",
+                          "line_id": "95",
+                          "line_name": "МЦК",
+                          "line_color": "CC4C6E",
+                          "station_id": "95.530",
+                          "station_name": "Автозаводская",
+                          "lat": 55.70631,
+                          "lng": 37.66314
+                      },
+                      {
+                          "id": 23,
+                          "city_id": 1,
+                          "city_name": "Москва",
+                          "line_id": "2",
+                          "line_name": "Замоскворецкая",
+                          "line_color": "4FB04F",
+                          "station_id": "2.2",
+                          "station_name": "Автозаводская",
+                          "lat": 55.706634,
+                          "lng": 37.657008
+                      }
+                  ]
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Офис отдан'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/company/office/{id}'
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: Office
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the office.'
+        required: true
+        example: assumenda
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: assumenda
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "message": "Офис успешно удален"
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Офис успешно удален'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Офис не найден",
+              "status": "error"
+          }
+        headers: []
+        description: 'Офис не найден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/company/office/update
+    metadata:
+      groupName: Company
+      groupDescription: ''
+      subgroup: Office
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      office_id:
+        name: office_id
+        description: integer
+        required: false
+        example: '1'
+        type: required
+        custom: []
+      address:
+        name: address
+        description: string
+        required: false
+        example: '"Санкт-Петербург, Гражданский проспект, 22"'
+        type: required
+        custom: []
+      coordinate:
+        name: coordinate
+        description: array
+        required: false
+        example: '[60.003979, 30.387329]'
+        type: reuired
+        custom: []
+      metro:
+        name: metro
+        description: array
+        required: false
+        example: '[ { "name": "Политехническая", "line": 1, "city": "Санкт-Петербург" }, { "name": "Академическая", "line": 1, "city": "Санкт-Петербург"  }]'
+        type: required
+        custom: []
+    cleanBodyParameters:
+      office_id: '1'
+      address: '"Санкт-Петербург, Гражданский проспект, 22"'
+      coordinate: '[60.003979, 30.387329]'
+      metro: '[ { "name": "Политехническая", "line": 1, "city": "Санкт-Петербург" }, { "name": "Академическая", "line": 1, "city": "Санкт-Петербург"  }]'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "id": 6,
+                  "address": "Москва, Гражданский проспект, 22",
+                  "added_by": "bitrix h.",
+                  "metro": [
+                      {
+                          "id": 238,
+                          "city_id": 1,
+                          "city_name": "Москва",
+                          "line_id": "95",
+                          "line_name": "МЦК",
+                          "line_color": "CC4C6E",
+                          "station_id": "95.530",
+                          "station_name": "Автозаводская",
+                          "lat": 55.70631,
+                          "lng": 37.66314
+                      },
+                      {
+                          "id": 23,
+                          "city_id": 1,
+                          "city_name": "Москва",
+                          "line_id": "2",
+                          "line_name": "Замоскворецкая",
+                          "line_color": "4FB04F",
+                          "station_id": "2.2",
+                          "station_name": "Автозаводская",
+                          "lat": 55.706634,
+                          "lng": 37.657008
+                      }
+                  ]
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Офис обновлен'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Офис не найден",
+              "status": "error"
+          }
+        headers: []
+        description: 'Офис не найден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

@@ -1,0 +1,207 @@
+name: Journal
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/journal/catalog
+    metadata:
+      groupName: Journal
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get the journal catalog.'
+      description: 'Retrieve the catalog of available journals.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":[{"id":1,"name":"\u0420\u0430\u0431\u043e\u0442\u0430"},{"id":2,"name":"\u041e\u0431\u0443\u0447\u0435\u043d\u0438\u0435"},{"id":3,"name":"\u0410\u0432\u0442\u043e"},{"id":4,"name":"\u041c\u043e\u0442\u0438\u0432\u0430\u0446\u0438\u044f"},{"id":5,"name":"\u041d\u043e\u0432\u043e\u0441\u0442\u0438 \u0441\u0435\u0440\u0432\u0438\u0441\u0430"}],"status":"success"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '47'
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/journal/catalog/{id}/{page?}'
+    metadata:
+      groupName: Journal
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Show journals from a specific catalog.'
+      description: 'Get the journals belonging to a specific catalog by its ID.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the catalog.'
+        required: true
+        example: velit
+        type: string
+        custom: []
+      page:
+        name: page
+        description: ''
+        required: false
+        example: eius
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: velit
+      page: eius
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 404
+        content: '{"message":"\u041a\u0430\u0442\u0430\u043b\u043e\u0433 \u0441 \u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440\u043e\u043c velit \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d.","status":"info"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '46'
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/journal/{id}'
+    metadata:
+      groupName: Journal
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Show a specific journal.'
+      description: 'Get the details of a specific journal by its ID.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the journal.'
+        required: true
+        example: distinctio
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: distinctio
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 404
+        content: '{"message":"\u0416\u0443\u0440\u043d\u0430\u043b \u0441 \u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440\u043e\u043c distinctio \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d.","status":"info"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '45'
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/journals/{page?}'
+    metadata:
+      groupName: Journal
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Show all journals.'
+      description: 'Get all the journals and display them.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      page:
+        name: page
+        description: ''
+        required: false
+        example: autem
+        type: string
+        custom: []
+    cleanUrlParameters:
+      page: autem
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":[[{"_id":700,"date":1693583170,"cat_id":5,"desc":"Dolorem quod corrupti molestiae qui. Cupiditate dolorem in fugit adipisci possimus voluptas possimus. At culpa consequatur facilis non non fugit quia. Quo magni at quia quod alias illum sit eligendi. Ab distinctio aut inventore sunt. Vitae quia ratione qui cum harum tempore dolores dolores. Excepturi voluptas omnis nemo inventore consequuntur eligendi accusantium ea. Et totam odit quia. Totam quisquam eveniet facilis voluptas. Ratione beatae iusto est et. Et expedita voluptas commodi iusto.","title":"Molestias esse.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":699,"date":1693583170,"cat_id":1,"desc":"Quos voluptatibus eum provident perspiciatis sunt eum optio natus. Voluptatem voluptates doloremque et ut facere voluptatem culpa quis. Vero pariatur ullam animi doloribus. Architecto tempore ipsam ut ea et sint. Beatae pariatur consequatur rerum et cum aspernatur blanditiis. Repudiandae ut exercitationem mollitia nam sint vel illum minus. Commodi placeat doloremque nihil sunt consequatur ut amet.","title":"Porro qui eos.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":698,"date":1693583170,"cat_id":3,"desc":"Qui ut eum blanditiis harum. Facilis et corporis nulla sit dignissimos rerum. Occaecati voluptatem consequatur sint qui voluptate ut molestias. Est sapiente voluptatem quo et ut cumque aperiam. Voluptatem voluptatem et cum et. Perspiciatis vero illo nisi officiis. Voluptas rem molestias quos. Ipsa corrupti autem et aut. Et ut fugiat ab deleniti. Praesentium sit placeat nam magni. Ad dolor aperiam qui aut hic est nemo. Facilis et ad excepturi dicta laboriosam.","title":"Sed eligendi.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":697,"date":1693583170,"cat_id":2,"desc":"Ab qui asperiores est facilis repudiandae aliquam. Temporibus optio voluptatibus dolorum eum aliquid. Voluptas commodi dignissimos similique tenetur maiores nesciunt magnam. Dolorum nam aut magnam praesentium qui. A qui iste maxime commodi eveniet illo. Perferendis non est sed voluptas aliquam. Nihil est et distinctio ut. Non velit beatae minus officiis quo. Doloremque sit reprehenderit aut repellat.","title":"Beatae.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":696,"date":1693583170,"cat_id":5,"desc":"Doloribus rem numquam eveniet quos vel magni. At eos sint voluptatem eius optio. Sed ullam assumenda sit eveniet. Enim voluptas illum nesciunt impedit enim quasi temporibus incidunt. Unde quaerat voluptas sed et. Et dolor velit at tempora hic quis. Numquam velit earum et ipsum fugiat ullam. Fugit doloribus eveniet quia. Facere sed sed corrupti suscipit. Qui assumenda ut veritatis et perspiciatis facilis. Et quidem quisquam ipsum. Accusantium hic sint sequi ut at.","title":"Assumenda.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":695,"date":1693583170,"cat_id":5,"desc":"Voluptatibus voluptas debitis ut voluptas eos doloribus ut. Ab neque ut laudantium. Sunt laudantium corporis sint nobis. Repellat veritatis a incidunt quia quis ut. Ut molestias magnam temporibus ab assumenda iste. Iusto accusantium fuga qui molestiae atque quis nihil laboriosam. Praesentium dolores excepturi praesentium quidem iusto cupiditate voluptatem sint.","title":"Dolores.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":694,"date":1693583170,"cat_id":3,"desc":"Et aliquam nam voluptatem vel voluptates aut. Distinctio at alias deserunt vel nesciunt ipsam. Dolore ipsam deleniti ab. Sit fugiat expedita et in aspernatur sapiente. Vitae placeat eveniet sed praesentium unde. Aspernatur a et numquam placeat voluptatibus. Rerum corrupti vel et aut dolore non. Ut alias vitae aut numquam facilis fugiat aut. Et eum similique quaerat facere culpa aut ipsa. Et velit a eaque accusantium nobis iusto rerum.","title":"Deleniti quia.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":693,"date":1693583170,"cat_id":5,"desc":"Quia officia hic perspiciatis laudantium alias eius accusamus dolor. Et et mollitia eligendi sint dolor. Tempore rerum et fugiat. Voluptatibus eius ut omnis vitae ut dolores dolor quis. Deleniti in rem et. Et quae praesentium est. Dolor quas quo animi. Maxime nisi corrupti esse maxime aperiam. Fuga corrupti incidunt dolore voluptatem voluptatem aut mollitia. Consequuntur officia rerum quasi. Asperiores accusantium laboriosam eos magnam.","title":"Consequatur.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":692,"date":1693583170,"cat_id":4,"desc":"Sint ipsam tempora nesciunt occaecati rem voluptatem tenetur sit. Iusto culpa corporis quo distinctio non. Ipsa provident labore odit libero qui officia aut temporibus. Unde iste illum qui non expedita. Voluptas facere praesentium incidunt. Dolores sequi est facilis cupiditate sequi. Temporibus veniam vel qui quasi architecto. Sit assumenda dicta sequi consequatur magnam maxime molestiae. Tenetur modi nemo rerum omnis.","title":"Fugit amet sit.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":691,"date":1693583170,"cat_id":1,"desc":"Cumque ipsa perferendis ut quas sunt. Est consequatur omnis consequatur id. Odit quaerat autem eos. Rem impedit quisquam vitae et quaerat quod velit. Dolor consequatur deserunt est perferendis et reiciendis voluptatibus. Et earum minus sunt quaerat sit nihil. Sit nihil expedita incidunt architecto dolorem omnis. Cum provident omnis illo neque. Doloremque facere est aut similique earum. Quasi quia nostrum eos consequatur facilis cum.","title":"Ea dolore aut.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":690,"date":1693583170,"cat_id":1,"desc":"Aliquam distinctio quo qui nobis mollitia odit. Unde et illum dolore quaerat. Et dignissimos hic ipsum consequatur temporibus ratione. Rerum quaerat dolor ut cupiditate rerum qui. Necessitatibus in aut debitis quae. Voluptatem distinctio quod est. Est amet dicta aperiam sit. Aut nihil non nisi sit eos reiciendis dicta. Officiis qui sapiente consequatur. Architecto aspernatur dolores rerum sint cumque temporibus pariatur cum.","title":"Placeat in.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":689,"date":1693583170,"cat_id":1,"desc":"Libero officia aperiam dolorem soluta est. Ut consequatur in temporibus aspernatur tenetur. Odit hic nam debitis non accusamus. Voluptas quod voluptas voluptas quibusdam. Et deserunt et sapiente totam. Quo est quas vitae vel aut expedita animi officia. Nam qui tenetur quae ut. Voluptas facere fugiat veniam ut nesciunt. Deserunt ut et non quae quisquam est perspiciatis. Ea explicabo ab dolorem quidem.","title":"Quibusdam.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"},{"_id":688,"date":1693583170,"cat_id":5,"desc":"Quam et excepturi fugit vero non sequi. Eius nihil accusamus placeat reprehenderit qui hic unde doloremque. Sed vel incidunt et ratione qui. Eveniet ducimus est quis deserunt. Quo earum quae expedita architecto quas non modi. Natus vel et voluptas reprehenderit quam. Sed nostrum sequi dolorem autem earum. Consequatur fuga voluptatem aspernatur. Repudiandae corrupti in nulla quia iusto voluptas.","title":"Aut expedita.","image":"https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/1\/11\/Test-Logo.svg\/1200px-Test-Logo.svg.png","firtsname":"The best","lastname":"Project"}]],"status":"success"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '44'
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

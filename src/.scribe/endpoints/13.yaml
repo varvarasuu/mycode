@@ -1,0 +1,136 @@
+name: Template
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/template
+    metadata:
+      groupName: Template
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {"Интервью в офисе": {
+                  "category": "Интервью в офисе",
+                  "template": [
+                      {
+                          "id": 41,
+                          "name": "Приглашение на Интервью в офисе",
+                          "text": "Здравствуйте, [Name]!\n                    Благодарим Вас за интерес, проявленный к вакансии [Vacancy]. Мы внимательно изучили Ваше резюме и пришли к выводу, что Ваш опыт, знания и квалификация отвечают требованиям нашей организации. Чтобы обсудить все нюансы, приглашаем Вас на собеседование в офис нашей компании.\n                    \n                    Дата и время: _____\n                    Адрес: _____\n                    \n                    Более подробную информацию о нашей компании Вы можете узнать на нашем сайте.\n                    \n                    Если указанная дата или время Вас не устраивают, сообщите об этом заранее. В случае, если возникнут вопросы, обращайтесь по телефону [HRPhone].\n                    \n                    С уважением,\n                    [HRName]"
+                      },
+                      {
+                          "id": 42,
+                          "name": "Приглашение на Интервью в офисе по СМС",
+                          "text": "Вас приглашают на вакансию [Vacancy].\n                    [HRPhone] [HRName]"
+                      }
+                  ]
+              }},
+              
+              "status": "success"
+          }
+        headers: []
+        description: 'Данные отправлены'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/template/change
+    metadata:
+      groupName: Template
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      id:
+        name: id
+        description: interger
+        required: false
+        example: '1'
+        type: reuired
+        custom: []
+      text:
+        name: text
+        description: string
+        required: false
+        example: jdfijsdo
+        type: required
+        custom: []
+    cleanBodyParameters:
+      id: '1'
+      text: jdfijsdo
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "message": "Шаблон обновлен"
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Данные обновлены'
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Вы не зашли в профиль компании",
+              "status": "error"
+          }
+        headers: []
+        description: 'Вы не зашли в профиль компании'
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "Шаблон не найден",
+              "status": "error404"
+          }
+        headers: []
+        description: 'Шаблон не найден'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

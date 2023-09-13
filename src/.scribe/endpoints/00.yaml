@@ -1,0 +1,1396 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/documentation
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display Swagger API page.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <title>L5 Swagger UI</title>
+              <link rel="stylesheet" type="text/css" href="http://localhost/docs/asset/swagger-ui.css?v=c9a0b360b746f3f8a36a51e9f57e8d27">
+              <link rel="icon" type="image/png" href="http://localhost/docs/asset/favicon-32x32.png?v=40d4f2c38d1cd854ad463f16373cbcb6" sizes="32x32"/>
+              <link rel="icon" type="image/png" href="http://localhost/docs/asset/favicon-16x16.png?v=f0ae831196d55d8f4115b6c5e8ec5384" sizes="16x16"/>
+              <style>
+              html
+              {
+                  box-sizing: border-box;
+                  overflow: -moz-scrollbars-vertical;
+                  overflow-y: scroll;
+              }
+              *,
+              *:before,
+              *:after
+              {
+                  box-sizing: inherit;
+              }
+
+              body {
+                margin:0;
+                background: #fafafa;
+              }
+              </style>
+          </head>
+
+          <body>
+          <div id="swagger-ui"></div>
+
+          <script src="http://localhost/docs/asset/swagger-ui-bundle.js?v=ea94a6052d037a1e90c46641afd9299a"></script>
+          <script src="http://localhost/docs/asset/swagger-ui-standalone-preset.js?v=ecf2d95c3d7bf206343240ed955bf5d0"></script>
+          <script>
+              window.onload = function() {
+                  // Build a system
+                  const ui = SwaggerUIBundle({
+                      dom_id: '#swagger-ui',
+                      url: "http://localhost/docs/api-docs.json",
+                      operationsSorter: null,
+                      configUrl: null,
+                      validatorUrl: null,
+                      oauth2RedirectUrl: "http://localhost/api/oauth2-callback",
+
+                      requestInterceptor: function(request) {
+                          request.headers['X-CSRF-TOKEN'] = '';
+                          return request;
+                      },
+
+                      presets: [
+                          SwaggerUIBundle.presets.apis,
+                          SwaggerUIStandalonePreset
+                      ],
+
+                      plugins: [
+                          SwaggerUIBundle.plugins.DownloadUrl
+                      ],
+
+                      layout: "StandaloneLayout",
+                      docExpansion : "none",
+                      deepLinking: true,
+                      filter: true,
+                      persistAuthorization: "false",
+
+                  })
+
+                  window.ui = ui
+
+                      }
+          </script>
+          </body>
+          </html>
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/oauth2-callback
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display Oauth2 callback pages.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          <!doctype html>
+          <html lang="en-US">
+          <head>
+              <title>Swagger UI: OAuth2 Redirect</title>
+          </head>
+          <body>
+          <script>
+              'use strict';
+              function run () {
+                  var oauth2 = window.opener.swaggerUIRedirectOauth2;
+                  var sentState = oauth2.state;
+                  var redirectUrl = oauth2.redirectUrl;
+                  var isValid, qp, arr;
+
+                  if (/code|token|error/.test(window.location.hash)) {
+                      qp = window.location.hash.substring(1).replace('?', '&');
+                  } else {
+                      qp = location.search.substring(1);
+                  }
+
+                  arr = qp.split("&");
+                  arr.forEach(function (v,i,_arr) { _arr[i] = '"' + v.replace('=', '":"') + '"';});
+                  qp = qp ? JSON.parse('{' + arr.join() + '}',
+                          function (key, value) {
+                              return key === "" ? value : decodeURIComponent(value);
+                          }
+                  ) : {};
+
+                  isValid = qp.state === sentState;
+
+                  if ((
+                    oauth2.auth.schema.get("flow") === "accessCode" ||
+                    oauth2.auth.schema.get("flow") === "authorizationCode" ||
+                    oauth2.auth.schema.get("flow") === "authorization_code"
+                  ) && !oauth2.auth.code) {
+                      if (!isValid) {
+                          oauth2.errCb({
+                              authId: oauth2.auth.name,
+                              source: "auth",
+                              level: "warning",
+                              message: "Authorization may be unsafe, passed state was changed in server. The passed state wasn't returned from auth server."
+                          });
+                      }
+
+                      if (qp.code) {
+                          delete oauth2.state;
+                          oauth2.auth.code = qp.code;
+                          oauth2.callback({auth: oauth2.auth, redirectUrl: redirectUrl});
+                      } else {
+                          let oauthErrorMsg;
+                          if (qp.error) {
+                              oauthErrorMsg = "["+qp.error+"]: " +
+                                  (qp.error_description ? qp.error_description+ ". " : "no accessCode received from the server. ") +
+                                  (qp.error_uri ? "More info: "+qp.error_uri : "");
+                          }
+
+                          oauth2.errCb({
+                              authId: oauth2.auth.name,
+                              source: "auth",
+                              level: "error",
+                              message: oauthErrorMsg || "[Authorization failed]: no accessCode received from the server."
+                          });
+                      }
+                  } else {
+                      oauth2.callback({auth: oauth2.auth, token: qp, isValid: isValid, redirectUrl: redirectUrl});
+                  }
+                  window.close();
+              }
+
+              if (document.readyState !== 'loading') {
+                  run();
+              } else {
+                  document.addEventListener('DOMContentLoaded', function () {
+                      run();
+                  });
+              }
+          </script>
+          </body>
+          </html>
+        headers:
+          content-type: 'text/html; charset=UTF-8'
+          cache-control: 'no-cache, private'
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/user
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/employer/create
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/employer/update
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/employer/duplicate/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the duplicate.'
+        required: true
+        example: pariatur
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: pariatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/employer/delete-vacancy/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the delete vacancy.'
+        required: true
+        example: a
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: a
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/employer/archieve-vacancy/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the archieve vacancy.'
+        required: true
+        example: iste
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: iste
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/employer/unarchieve-vacancy/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the unarchieve vacancy.'
+        required: true
+        example: voluptatem
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: voluptatem
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/employer/delete-inactive-vacancy/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the delete inactive vacancy.'
+        required: true
+        example: voluptatem
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: voluptatem
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/employer/vacancy-default-data
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/employer/get-active
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/employer/get-inactive
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/employer/get-archieve
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/employer/get-archieve-vacancies-regions
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/employer/get-active-vacancies-regions
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/employer/get-active-invacancies-regions
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/employer/files/test-tasks-deadline
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/employer/vacancies
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/employer/view/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the view.'
+        required: true
+        example: fugit
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: fugit
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/parse
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      link:
+        name: link
+        description: string
+        required: false
+        example: hh.ru
+        type: reuired
+        custom: []
+    cleanBodyParameters:
+      link: hh.ru
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "account_id": 1,
+                  "firstname": "The best",
+                  "lastname": "Project",
+                  "birthday": null,
+                  "power_up": 0,
+                  "city_id": 2,
+                  "relocation": 1,
+                  "text_work_experience": "",
+                  "have_car": 0,
+                  "about": "Я очень коммуникабельный и позитивный человек. Я легко нахожу общий язык с людьми, без проблем усваиваю новую информацию и приобретаю новые навыки. Желаю получить больше опыта в сфере бизнеса и работы с персоналом. Ищу способы развиваться по специальности.",
+                  "video_resume_url": null,
+                  "avatar": "https://img.hhcdn.ru/photo/617387225.jpeg?t=1692950413&h=MkaSRRF2KWYsSKjAslbKwg",
+                  "job_title": "Стажер в отделе качества, г.Санкт-Петербург",
+                  "salary": "2000",
+                  "city_name": "Санкт-Петербург",
+                  "metro_id": null,
+                  "metro_name": null,
+                  "metro_line": null,
+                  "category_specialization_id": null,
+                  "category_specialization": "",
+                  "moderation": 0,
+                  "active": 0,
+                  "archived": 0,
+                  "decline": 0,
+                  "is_draft": 1,
+                  "specializations": [],
+                  "currency": "EUR",
+                  "currency_id": 3,
+                  "citizenship": [
+                      {
+                          "name": "Россия",
+                          "id": 113
+                      }
+                  ],
+                  "permit": [
+                      {
+                          "name": "Россия",
+                          "id": 113
+                      }
+                  ],
+                  "busyness": [
+                      {
+                          "id": 1,
+                          "name": "Частичная занятость"
+                      },
+                      {
+                          "id": 2,
+                          "name": "Временная работа"
+                      },
+                      {
+                          "id": 3,
+                          "name": "Волонтёрство"
+                      },
+                      {
+                          "id": 4,
+                          "name": "Стажировка"
+                      }
+                  ],
+                  "schedule": [
+                      {
+                          "id": 1,
+                          "name": "Сменный график"
+                      },
+                      {
+                          "id": 2,
+                          "name": "Гибкий график"
+                      }
+                  ],
+                  "businessTrips": [
+                      {
+                          "id": 1,
+                          "name": "Готов(а)"
+                      }
+                  ],
+                  "skills": [
+                      "Английский язык",
+                      "Пользователь ПК",
+                      "Навыки межличностного общения",
+                      "Грамотная речь",
+                      "Организаторские навыки",
+                      "Работа с людьми",
+                      "Работа в команде",
+                      "MS PowerPoint"
+                  ],
+                  "work_experience": [
+                      {
+                          "start_date": "2019-05-01",
+                          "end_date": null,
+                          "until_now": 1,
+                          "company_name": "Фонд \"Центр независимой потребительской экспертизы\"",
+                          "job_title": "Стажёр",
+                          "responsibilities": "Проведение независимого исследования в целях повышения осведомленности о порядке проведения экспертизы и ее документообороте.",
+                          "achievements": "",
+                          "reasons_leaving": ""
+                      },
+                      {
+                          "start_date": "2017-04-01",
+                          "end_date": "2017-08-01",
+                          "until_now": 0,
+                          "company_name": "ДВЕ ПАЛОЧКИ, сеть ресторанов свободного полета",
+                          "job_title": "Официант",
+                          "responsibilities": "Коммуникации между кухней, менеджерами, клиентами и другим различным персоналом. Быстрое овладение новой информацией (такой как новое дополнение меню каждые 2 недели). Быстрое принятие решений. Работа в стрессовой обстановке.",
+                          "achievements": "",
+                          "reasons_leaving": ""
+                      }
+                  ],
+                  "education": [
+                      {
+                          "level_id": null,
+                          "level": null,
+                          "name": "Stockholm University",
+                          "speciality": "Political science, International Master's programme in Environmental Social Science (main field: political science)",
+                          "faculty": "",
+                          "finish_year": "2021"
+                      },
+                      {
+                          "level_id": null,
+                          "level": null,
+                          "name": "Санкт-Петербургский государственный политехнический университет, Санкт-Петербург",
+                          "speciality": "Институт промышленного менеджмента, экономики и торговли, Управление качеством",
+                          "faculty": "",
+                          "finish_year": "2019"
+                      }
+                  ],
+                  "addEducation": [
+                      {
+                          "name": "Дизайн авто",
+                          "organization": null,
+                          "speciality": "Машины для всех",
+                          "finish_year": "2023"
+                      }
+                  ],
+                  "languages": [
+                      {
+                          "lang_name_id": 76,
+                          "lang_name": "Русский",
+                          "lang_level_id": 1,
+                          "lang_level": "Родной"
+                      },
+                      {
+                          "lang_name_id": 26,
+                          "lang_name": "Английский",
+                          "lang_level_id": 5,
+                          "lang_level": "B2 - Средне-продвинутый"
+                      }
+                  ],
+                  "drivingCategory": [
+                      {
+                          "id": 1,
+                          "category": "B"
+                      }
+                  ]
+              },
+              "status": "success"
+          }
+        headers: []
+        description: 'Данные отправлены'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/metro-by-id
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":[],"status":"success"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '34'
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/metro-search
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":[],"status":"success"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '33'
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/languages
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":[{"id":1,"lang_id":"abk","lang":"\u0410\u0431\u0445\u0430\u0437\u0441\u043a\u0438\u0439"},{"id":2,"lang_id":"abq","lang":"\u0410\u0431\u0430\u0437\u0438\u043d\u0441\u043a\u0438\u0439"},{"id":3,"lang_id":"afr","lang":"\u0410\u0444\u0440\u0438\u043a\u0430\u0430\u043d\u0441"},{"id":4,"lang_id":"amh","lang":"\u0410\u043c\u0445\u0430\u0440\u0441\u043a\u0438\u0439"},{"id":5,"lang_id":"ara","lang":"\u0410\u0440\u0430\u0431\u0441\u043a\u0438\u0439"},{"id":6,"lang_id":"ava","lang":"\u0410\u0432\u0430\u0440\u0441\u043a\u0438\u0439"},{"id":7,"lang_id":"aze","lang":"\u0410\u0437\u0435\u0440\u0431\u0430\u0439\u0434\u0436\u0430\u043d\u0441\u043a\u0438\u0439"},{"id":8,"lang_id":"bak","lang":"\u0411\u0430\u0448\u043a\u0438\u0440\u0441\u043a\u0438\u0439"},{"id":9,"lang_id":"bel","lang":"\u0411\u0435\u043b\u043e\u0440\u0443\u0441\u0441\u043a\u0438\u0439"},{"id":10,"lang_id":"ben","lang":"\u0411\u0435\u043d\u0433\u0430\u043b\u044c\u0441\u043a\u0438\u0439"},{"id":11,"lang_id":"bod","lang":"\u0422\u0438\u0431\u0435\u0442\u0441\u043a\u0438\u0439"},{"id":12,"lang_id":"bos","lang":"\u0411\u043e\u0441\u043d\u0438\u0439\u0441\u043a\u0438\u0439"},{"id":13,"lang_id":"bua","lang":"\u0411\u0443\u0440\u044f\u0442\u0441\u043a\u0438\u0439"},{"id":14,"lang_id":"bul","lang":"\u0411\u043e\u043b\u0433\u0430\u0440\u0441\u043a\u0438\u0439"},{"id":15,"lang_id":"cat","lang":"\u041a\u0430\u0442\u0430\u043b\u0430\u043d\u0441\u043a\u0438\u0439"},{"id":16,"lang_id":"ces","lang":"\u0427\u0435\u0448\u0441\u043a\u0438\u0439"},{"id":17,"lang_id":"che","lang":"\u0427\u0435\u0447\u0435\u043d\u0441\u043a\u0438\u0439"},{"id":18,"lang_id":"chm","lang":"\u041c\u0430\u0440\u0438\u0439\u0441\u043a\u0438\u0439"},{"id":19,"lang_id":"chv","lang":"\u0427\u0443\u0432\u0430\u0448\u0441\u043a\u0438\u0439"},{"id":20,"lang_id":"crs","lang":"\u041a\u0440\u0435\u043e\u043b\u044c\u0441\u043a\u0438\u0439 (\u0421\u0435\u0439\u0448\u0435\u043b\u044c\u0441\u043a\u0438\u0435 \u043e\u0441\u0442\u0440\u043e\u0432\u0430)"},{"id":21,"lang_id":"dag","lang":"\u0414\u0430\u0433\u0435\u0441\u0442\u0430\u043d\u0441\u043a\u0438\u0439"},{"id":22,"lang_id":"dan","lang":"\u0414\u0430\u0442\u0441\u043a\u0438\u0439"},{"id":23,"lang_id":"dar","lang":"\u0414\u0430\u0440\u0433\u0438\u043d\u0441\u043a\u0438\u0439"},{"id":24,"lang_id":"deu","lang":"\u041d\u0435\u043c\u0435\u0446\u043a\u0438\u0439"},{"id":25,"lang_id":"ell","lang":"\u0413\u0440\u0435\u0447\u0435\u0441\u043a\u0438\u0439"},{"id":26,"lang_id":"eng","lang":"\u0410\u043d\u0433\u043b\u0438\u0439\u0441\u043a\u0438\u0439"},{"id":27,"lang_id":"epo","lang":"\u042d\u0441\u043f\u0435\u0440\u0430\u043d\u0442\u043e"},{"id":28,"lang_id":"est","lang":"\u042d\u0441\u0442\u043e\u043d\u0441\u043a\u0438\u0439"},{"id":29,"lang_id":"eus","lang":"\u0411\u0430\u0441\u043a\u0441\u043a\u0438\u0439"},{"id":30,"lang_id":"fas","lang":"\u041f\u0435\u0440\u0441\u0438\u0434\u0441\u043a\u0438\u0439"},{"id":31,"lang_id":"fin","lang":"\u0424\u0438\u043d\u0441\u043a\u0438\u0439"},{"id":32,"lang_id":"fra","lang":"\u0424\u0440\u0430\u043d\u0446\u0443\u0437\u0441\u043a\u0438\u0439"},{"id":33,"lang_id":"gle","lang":"\u0418\u0440\u043b\u0430\u043d\u0434\u0441\u043a\u0438\u0439"},{"id":34,"lang_id":"heb","lang":"\u0418\u0432\u0440\u0438\u0442"},{"id":35,"lang_id":"hin","lang":"\u0425\u0438\u043d\u0434\u0438"},{"id":36,"lang_id":"hrv","lang":"\u0425\u043e\u0440\u0432\u0430\u0442\u0441\u043a\u0438\u0439"},{"id":37,"lang_id":"hun","lang":"\u0412\u0435\u043d\u0433\u0435\u0440\u0441\u043a\u0438\u0439"},{"id":38,"lang_id":"hye","lang":"\u0410\u0440\u043c\u044f\u043d\u0441\u043a\u0438\u0439"},{"id":39,"lang_id":"ind","lang":"\u0418\u043d\u0434\u043e\u043d\u0435\u0437\u0438\u0439\u0441\u043a\u0438\u0439"},{"id":40,"lang_id":"inh","lang":"\u0418\u043d\u0433\u0443\u0448\u0441\u043a\u0438\u0439"},{"id":41,"lang_id":"isl","lang":"\u0418\u0441\u043b\u0430\u043d\u0434\u0441\u043a\u0438\u0439"},{"id":42,"lang_id":"ita","lang":"\u0418\u0442\u0430\u043b\u044c\u044f\u043d\u0441\u043a\u0438\u0439"},{"id":43,"lang_id":"jpn","lang":"\u042f\u043f\u043e\u043d\u0441\u043a\u0438\u0439"},{"id":44,"lang_id":"kas","lang":"\u041a\u0430\u0448\u043c\u0438\u0440\u0441\u043a\u0438\u0439"},{"id":45,"lang_id":"kat","lang":"\u0413\u0440\u0443\u0437\u0438\u043d\u0441\u043a\u0438\u0439"},{"id":46,"lang_id":"kaz","lang":"\u041a\u0430\u0437\u0430\u0445\u0441\u043a\u0438\u0439"},{"id":47,"lang_id":"kbd","lang":"\u041a\u0430\u0431\u0430\u0440\u0434\u0438\u043d\u043e-\u0447\u0435\u0440\u043a\u0435\u0441\u0441\u043a\u0438\u0439"},{"id":48,"lang_id":"khm","lang":"\u041a\u0445\u043c\u0435\u0440\u0441\u043a\u0438\u0439 (\u041a\u0430\u043c\u0431\u043e\u0434\u0436\u0438\u0439\u0441\u043a\u0438\u0439)"},{"id":49,"lang_id":"kir","lang":"\u041a\u044b\u0440\u0433\u044b\u0437\u0441\u043a\u0438\u0439"},{"id":50,"lang_id":"kom","lang":"\u041a\u043e\u043c\u0438"},{"id":51,"lang_id":"kor","lang":"\u041a\u043e\u0440\u0435\u0439\u0441\u043a\u0438\u0439"},{"id":52,"lang_id":"krc","lang":"\u041a\u0430\u0440\u0430\u0447\u0430\u0435\u0432\u043e-\u0431\u0430\u043b\u043a\u0430\u0440\u0441\u043a\u0438\u0439"},{"id":53,"lang_id":"krl","lang":"\u041a\u0430\u0440\u0435\u043b\u044c\u0441\u043a\u0438\u0439"},{"id":54,"lang_id":"kum","lang":"\u041a\u0443\u043c\u044b\u043a\u0441\u043a\u0438\u0439"},{"id":55,"lang_id":"kur","lang":"\u041a\u0443\u0440\u0434\u0441\u043a\u0438\u0439"},{"id":56,"lang_id":"lao","lang":"\u041b\u0430\u043e\u0441\u0441\u043a\u0438\u0439"},{"id":57,"lang_id":"lat","lang":"\u041b\u0430\u0442\u0438\u043d\u0441\u043a\u0438\u0439"},{"id":58,"lang_id":"lav","lang":"\u041b\u0430\u0442\u044b\u0448\u0441\u043a\u0438\u0439"},{"id":59,"lang_id":"lbe","lang":"\u041b\u0430\u043a\u0441\u043a\u0438\u0439"},{"id":60,"lang_id":"lez","lang":"\u041b\u0435\u0437\u0433\u0438\u043d\u0441\u043a\u0438\u0439"},{"id":61,"lang_id":"lit","lang":"\u041b\u0438\u0442\u043e\u0432\u0441\u043a\u0438\u0439"},{"id":62,"lang_id":"mke","lang":"\u041c\u0430\u043a\u0435\u0434\u043e\u043d\u0441\u043a\u0438\u0439"},{"id":63,"lang_id":"mns","lang":"\u041c\u0430\u043d\u0441\u0438\u0439\u0441\u043a\u0438\u0439"},{"id":64,"lang_id":"mon","lang":"\u041c\u043e\u043d\u0433\u043e\u043b\u044c\u0441\u043a\u0438\u0439"},{"id":65,"lang_id":"mya","lang":"\u0411\u0438\u0440\u043c\u0430\u043d\u0441\u043a\u0438\u0439"},{"id":66,"lang_id":"nep","lang":"\u041d\u0435\u043f\u0430\u043b\u044c\u0441\u043a\u0438\u0439"},{"id":67,"lang_id":"nld","lang":"\u0413\u043e\u043b\u043b\u0430\u043d\u0434\u0441\u043a\u0438\u0439"},{"id":68,"lang_id":"nog","lang":"\u041d\u043e\u0433\u0430\u0439\u0441\u043a\u0438\u0439"},{"id":69,"lang_id":"nor","lang":"\u041d\u043e\u0440\u0432\u0435\u0436\u0441\u043a\u0438\u0439"},{"id":70,"lang_id":"oss","lang":"\u041e\u0441\u0435\u0442\u0438\u043d\u0441\u043a\u0438\u0439"},{"id":71,"lang_id":"pan","lang":"\u041f\u0430\u043d\u0434\u0436\u0430\u0431\u0438"},{"id":72,"lang_id":"pol","lang":"\u041f\u043e\u043b\u044c\u0441\u043a\u0438\u0439"},{"id":73,"lang_id":"por","lang":"\u041f\u043e\u0440\u0442\u0443\u0433\u0430\u043b\u044c\u0441\u043a\u0438\u0439"},{"id":74,"lang_id":"pus","lang":"\u041f\u0443\u0448\u0442\u0443"},{"id":75,"lang_id":"ron","lang":"\u0420\u0443\u043c\u044b\u043d\u0441\u043a\u0438\u0439"},{"id":76,"lang_id":"rus","lang":"\u0420\u0443\u0441\u0441\u043a\u0438\u0439"},{"id":77,"lang_id":"sah","lang":"\u042f\u043a\u0443\u0442\u0441\u043a\u0438\u0439"},{"id":78,"lang_id":"san","lang":"\u0421\u0430\u043d\u0441\u043a\u0440\u0438\u0442"},{"id":79,"lang_id":"slk","lang":"\u0421\u043b\u043e\u0432\u0430\u0446\u043a\u0438\u0439"},{"id":80,"lang_id":"slv","lang":"\u0421\u043b\u043e\u0432\u0435\u043d\u0441\u043a\u0438\u0439"},{"id":81,"lang_id":"som","lang":"\u0421\u043e\u043c\u0430\u043b\u0438\u0439\u0441\u043a\u0438\u0439"},{"id":82,"lang_id":"spa","lang":"\u0418\u0441\u043f\u0430\u043d\u0441\u043a\u0438\u0439"},{"id":83,"lang_id":"sqi","lang":"\u0410\u043b\u0431\u0430\u043d\u0441\u043a\u0438\u0439"},{"id":84,"lang_id":"srp","lang":"\u0421\u0435\u0440\u0431\u0441\u043a\u0438\u0439"},{"id":85,"lang_id":"swa","lang":"\u0421\u0443\u0430\u0445\u0438\u043b\u0438"},{"id":86,"lang_id":"swe","lang":"\u0428\u0432\u0435\u0434\u0441\u043a\u0438\u0439"},{"id":87,"lang_id":"tam","lang":"\u0422\u0430\u043c\u0438\u043b\u044c\u0441\u043a\u0438\u0439"},{"id":88,"lang_id":"tat","lang":"\u0422\u0430\u0442\u0430\u0440\u0441\u043a\u0438\u0439"},{"id":89,"lang_id":"tgk","lang":"\u0422\u0430\u0434\u0436\u0438\u043a\u0441\u043a\u0438\u0439"},{"id":90,"lang_id":"tgl","lang":"\u0422\u0430\u0433\u0430\u043b\u044c\u0441\u043a\u0438\u0439"},{"id":91,"lang_id":"tha","lang":"\u0422\u0430\u0439\u0441\u043a\u0438\u0439"},{"id":92,"lang_id":"tly","lang":"\u0422\u0430\u043b\u044b\u0448\u0441\u043a\u0438\u0439"},{"id":93,"lang_id":"tuk","lang":"\u0422\u0443\u0440\u043a\u043c\u0435\u043d\u0441\u043a\u0438\u0439"},{"id":94,"lang_id":"tur","lang":"\u0422\u0443\u0440\u0435\u0446\u043a\u0438\u0439"},{"id":95,"lang_id":"tyv","lang":"\u0422\u0443\u0432\u0438\u043d\u0441\u043a\u0438\u0439"},{"id":96,"lang_id":"udm","lang":"\u0423\u0434\u043c\u0443\u0440\u0442\u0441\u043a\u0438\u0439"},{"id":97,"lang_id":"uig","lang":"\u0423\u0439\u0433\u0443\u0440\u0441\u043a\u0438\u0439"},{"id":98,"lang_id":"ukr","lang":"\u0423\u043a\u0440\u0430\u0438\u043d\u0441\u043a\u0438\u0439"},{"id":99,"lang_id":"urd","lang":"\u0423\u0440\u0434\u0443"},{"id":100,"lang_id":"uzb","lang":"\u0423\u0437\u0431\u0435\u043a\u0441\u043a\u0438\u0439"},{"id":101,"lang_id":"vie","lang":"\u0412\u044c\u0435\u0442\u043d\u0430\u043c\u0441\u043a\u0438\u0439"},{"id":102,"lang_id":"vls","lang":"\u0424\u043b\u0430\u043c\u0430\u043d\u0434\u0441\u043a\u0438\u0439"},{"id":103,"lang_id":"zho","lang":"\u041a\u0438\u0442\u0430\u0439\u0441\u043a\u0438\u0439"},{"id":104,"lang_id":"zlm","lang":"\u041c\u0430\u043b\u0430\u0437\u0438\u0439\u0441\u043a\u0438\u0439"}],"status":"success"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '31'
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/banner/create
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 422
+        content: '{"message":"\u0424\u0430\u0439\u043b \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u0435\u043d.","errors":{"path_to_file":["\u0424\u0430\u0439\u043b \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u0435\u043d."]}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '30'
+          access-control-allow-origin: '*'
+          access-control-allow-methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+          access-control-allow-headers: 'Content-Type, Authorization'
+        description: null
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

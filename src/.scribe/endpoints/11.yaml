@@ -1,0 +1,142 @@
+name: 'General Status'
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/general-statuses
+    metadata:
+      groupName: 'General Status'
+      groupDescription: ''
+      subgroup: 'Get general statuses'
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": [
+                  {
+                      "id": 1,
+                      "name": "В активном поиске работы",
+                      "type": "applicant",
+                      "created_at": "2023-07-26T11:13:23.000000Z",
+                      "updated_at": "2023-07-26T11:13:23.000000Z"
+                  },
+                  {
+                      "id": 2,
+                      "name": "Рассматриваю предложения",
+                      "type": "applicant",
+                      "created_at": "2023-07-26T11:13:23.000000Z",
+                      "updated_at": "2023-07-26T11:13:23.000000Z"
+                  },
+                  {
+                      "id": 3,
+                      "name": "Не ищу работу",
+                      "type": "applicant",
+                      "created_at": "2023-07-26T11:13:23.000000Z",
+                      "updated_at": "2023-07-26T11:13:23.000000Z"
+                  }
+              ],
+              "status": "success"
+          }
+        headers: []
+        description: success
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/set-general-status
+    metadata:
+      groupName: 'General Status'
+      groupDescription: ''
+      subgroup: 'Set general statuses'
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      general_status_id:
+        name: general_status_id
+        description: numeric
+        required: false
+        example: '1'
+        type: required
+        custom: []
+    cleanBodyParameters:
+      general_status_id: '1'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |
+          {
+              "data": {
+                  "id": 1,
+                  "email": "test@at-work.pro",
+                  "phone_number": "+79817569728",
+                  "is_active": null,
+                  "is_deleted": 0,
+                  "employer_status_id": null,
+                  "applicant_status_id": 2,
+                  "created_at": "2023-07-26T11:13:33.000000Z",
+                  "updated_at": "2023-07-26T11:24:52.000000Z",
+                  "avatar": null,
+                  "current_section_id": null,
+                  "logged_as": null
+              },
+              "status": "success"
+          }
+        headers: []
+        description: success
+        custom: []
+      -
+        status: 404
+        content: |
+          {
+              "message": "Status not found",
+              "status": "error"
+          }
+        headers: []
+        description: 'not found'
+        custom: []
+      -
+        status: 422
+        content: ''
+        headers: []
+        description: error
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
